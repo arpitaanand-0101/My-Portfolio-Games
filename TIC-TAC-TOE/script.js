@@ -4,28 +4,47 @@ const statusText = document.getElementById('status');
 const resetBtn = document.getElementById('reset-btn');
 
 let board = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
+let currentPlayer = "X"; // X will be Ruby Shard, O will be Sapphire Ring
 let isGameActive = true;
 
+// Vector Graphic Blocks defined as plain text variables
+const rubyCrystalSVG = `
+<svg viewBox="0 0 24 24" fill="none" style="color: #ff3e6c;">
+    <path d="M12 2L4 9L12 22L20 9L12 2Z" fill="#ff3e6c" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M12 2V22M4 9H20" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+</svg>`;
+
+const sapphireRingSVG = `
+<svg viewBox="0 0 24 24" fill="none" style="color: #00f0ff;">
+    <circle cx="12" cy="12" r="8" stroke="#00f0ff" stroke-width="3" fill="none"/>
+    <circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1" fill="none" stroke-dasharray="2"/>
+</svg>`;
+
 const winConditions = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
-    [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
-    [0, 4, 8], [2, 4, 6]             // Diagonals
+    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+    [0, 4, 8], [2, 4, 6]
 ];
 
 function handleCellClick(e) {
-    const cell = e.target;
+    // Find the cell clicked even if clicking directly on the SVG graphic inside it
+    const cell = e.target.closest('.cell');
+    if (!cell) return;
+    
     const index = parseInt(cell.getAttribute('data-index'));
 
-    // Ignore click if slot is full or game ended
     if (board[index] !== "" || !isGameActive) return;
 
-    // Update state data and update screen
     board[index] = currentPlayer;
-    cell.textContent = currentPlayer;
-    cell.classList.add(currentPlayer);
-
-    checkResult();
+    
+    // Inject the raw vector designs based on current player turn
+    if (currentPlayer === "X") {
+        cell.innerHTML = rubyCrystalSVG;
+        checkResult();
+    } else {
+        cell.innerHTML = sapphireRingSVG;
+        checkResult();
+    }
 }
 
 function checkResult() {
@@ -40,31 +59,31 @@ function checkResult() {
     }
 
     if (roundWon) {
-        statusText.textContent = `PLAYER ${currentPlayer} WINS! 🎉`;
+        statusText.textContent = `PLAYER ${currentPlayer === "X" ? "RUBY" : "SAPPHIRE"} WINS! 🏆`;
+        statusText.style.color = currentPlayer === "X" ? "#ff3e6c" : "#00f0ff";
         isGameActive = false;
         return;
     }
 
     if (!board.includes("")) {
-        statusText.textContent = "IT'S A TIE! 🤝";
+        statusText.textContent = "GRID STALEMATE! 🤝";
+        statusText.style.color = "#ffbe0b";
         isGameActive = false;
         return;
     }
 
-    // Switch turns
     currentPlayer = currentPlayer === "X" ? "O" : "X";
-    statusText.textContent = `PLAYER ${currentPlayer}'S TURN`;
+    statusText.textContent = `${currentPlayer === "X" ? "RUBY SHARD (X)" : "SAPPHIRE RING (O)"} TURN`;
+    statusText.style.color = currentPlayer === "X" ? "#ff3e6c" : "#00f0ff";
 }
 
 function resetGame() {
     board = ["", "", "", "", "", "", "", "", ""];
     currentPlayer = "X";
     isGameActive = true;
-    statusText.textContent = "PLAYER X'S TURN";
-    cells.forEach(cell => {
-        cell.textContent = "";
-        cell.classList.remove('X', 'O');
-    });
+    statusText.textContent = "RUBY SHARD (X) TURN";
+    statusText.style.color = "#ff3e6c";
+    cells.forEach(cell => cell.innerHTML = "");
 }
 
 boardElement.addEventListener('click', handleCellClick);

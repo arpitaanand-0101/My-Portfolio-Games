@@ -1,6 +1,6 @@
-/* Reset default page styling and apply an 8-bit font */
+/* Base Layout & Scrolling Space Background Animation */
 body {
-    background-color: #1a1a24;
+    background-color: #0b0b16;
     color: #fff;
     font-family: 'Press Start 2P', monospace;
     display: flex;
@@ -8,74 +8,107 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
+    position: relative;
 }
 
-/* Container mimicking a classic game screen overlay */
+.stars {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, #fff 1px, transparent 1px) repeat;
+    background-size: 40px 40px;
+    opacity: 0.3;
+    animation: spaceScroll 20s linear infinite;
+    z-index: 1;
+}
+
+@keyframes spaceScroll {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(-50px, -50px); }
+}
+
+/* Master Arcade Frame */
 .arcade-container {
-    background-color: #2c2c3e;
-    padding: 30px;
-    border: 6px solid #000;
-    box-shadow: 8px 8px 0px #000;
+    background-color: #141423;
+    padding: 35px;
+    border: 6px solid #ff3e6c;
+    box-shadow: 0px 0px 20px #ff3e6c, inset 0px 0px 15px rgba(255, 62, 108, 0.4);
     text-align: center;
-    border-radius: 4px;
+    border-radius: 8px;
+    position: relative;
+    z-index: 2;
 }
 
 .pixel-title {
-    color: #ff3e6c;
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-shadow: 3px 3px 0px #000;
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-shadow: 3px 3px 0px #ff3e6c, -1px -1px 0px #00f0ff;
+    letter-spacing: 2px;
 }
 
 .pixel-status {
     color: #00f0ff;
-    font-size: 12px;
+    font-size: 11px;
     margin-bottom: 25px;
+    text-shadow: 0px 0px 5px rgba(0, 240, 255, 0.5);
 }
 
-/* Grid layout for the game board */
+/* Cosmic Board Grid Matrix */
 .game-board {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 25px;
-    background-color: #000;
-    padding: 10px;
-    border: 4px solid #000;
+    background: linear-gradient(135deg, #ff3e6c, #00f0ff);
+    padding: 12px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 15px rgba(0, 240, 255, 0.3);
 }
 
-/* Styling individual squares to look like thick, tactile pixel blocks */
+/* Grid Cells transformed into deep panels */
 .cell {
-    background-color: #3d3d56;
-    border: 4px solid #fff;
-    border-color: #5c5c7d #1e1e2d #1e1e2d #5c5c7d; /* 3D light/shadow edge */
-    font-family: 'Press Start 2P', monospace;
-    font-size: 36px;
-    font-weight: bold;
-    color: #fff;
+    background-color: #1a1a2e;
+    border: 3px solid #252542;
     cursor: pointer;
     outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s, transform 0.1s;
 }
 
-.cell:active {
-    border-color: #1e1e2d #5c5c7d #5c5c7d #1e1e2d; /* Reverses edges when clicked */
+.cell:hover {
+    background-color: #22223b;
+    border-color: #00f0ff;
 }
 
-/* Coloring player marks dynamically */
-.cell.X { color: #ff3e6c; }
-.cell.O { color: #00f0ff; }
+/* SVG Token Sizing & Glows */
+.cell svg {
+    width: 65px;
+    height: 65px;
+    filter: drop-shadow(0px 0px 6px currentColor);
+}
 
-/* Thick pixel-art button */
+/* Stylized Retro Button */
 .pixel-btn {
-    background-color: #ffbe0b;
+    background-color: #00f0ff;
     color: #000;
     border: 4px solid #000;
     box-shadow: 4px 4px 0px #000;
     font-family: 'Press Start 2P', monospace;
-    padding: 10px 20px;
-    font-size: 12px;
+    padding: 12px 24px;
+    font-size: 11px;
+    font-weight: bold;
     cursor: pointer;
+    transition: all 0.1s;
+}
+
+.pixel-btn:hover {
+    background-color: #fff;
+    box-shadow: 4px 4px 0px #ff3e6c;
 }
 
 .pixel-btn:active {
