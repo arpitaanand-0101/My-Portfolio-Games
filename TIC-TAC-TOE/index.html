@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crystalline Battlegrounds - Tic Tac Toe</title>
+    <title>Ultimate Crystal Battlegrounds</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -11,24 +11,25 @@
 
     <div class="stars"></div>
 
-    <div class="arcade-container">
+    <div class="arcade-container" id="arcade-cabinet">
+        <a href="../index.html" class="back-hub-btn">◁ ARCADE HUB</a>
         <h1 class="pixel-title">CRYSTAL BATTLE</h1>
         
-        <div id="status" class="pixel-status">RUBY SHARD (X) TURN</div>
-
-        <div class="game-board">
-            <button class="cell" data-index="0"></button>
-            <button class="cell" data-index="1"></button>
-            <button class="cell" data-index="2"></button>
-            <button class="cell" data-index="3"></button>
-            <button class="cell" data-index="4"></button>
-            <button class="cell" data-index="5"></button>
-            <button class="cell" data-index="6"></button>
-            <button class="cell" data-index="7"></button>
-            <button class="cell" data-index="8"></button>
+        <div class="dashboard-controls">
+            <select id="game-engine-select" class="retro-select">
+                <option value="classic">CLASSIC 3x3</option>
+                <option value="mega">MEGA 4x4</option>
+                <option value="layer3d">3D LAYER STACK</option>
+                <option value="ultimate">INCEPTION MODE</option>
+            </select>
+            <button id="mode-btn" class="mode-btn">PLAYER VS AI</button>
         </div>
 
-        <button id="reset-btn" class="pixel-btn">RECHARGE GRID</button>
+        <div id="status" class="pixel-status">RUBY SHARD (X) TURN</div>
+
+        <div id="game-arena"></div>
+
+        <button id="reset-btn" class="pixel-btn">RECHARGE MATRIX</button>
     </div>
 
     <script src="script.js"></script>

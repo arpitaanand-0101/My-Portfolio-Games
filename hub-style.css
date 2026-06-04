@@ -1,0 +1,87 @@
+body {
+    background-color: #05050a;
+    color: #fff;
+    font-family: 'Press Start 2P', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* CRT Screen Effect Overlay */
+.scanlines {
+    position: absolute;
+    top:0; left:0; width:100%; height:100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 6px 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.cabinet-wrapper {
+    background: #0d0d1a;
+    border: 4px solid #ffbe0b;
+    box-shadow: 0px 0px 30px #ffbe0b;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+}
+
+.marquee-title {
+    color: #00f0ff;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    text-shadow: 3px 3px 0px #ff3e6c;
+    animation: flash 1.5s infinite alternate;
+}
+
+@keyframes flash {
+    0% { opacity: 1; }
+    100% { opacity: 0.7; }
+}
+
+.subtitle {
+    color: #5c5c7d;
+    font-size: 10px;
+    margin-bottom: 35px;
+    letter-spacing: 1px;
+}
+
+.games-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.game-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border: 3px solid #3d3d56;
+    background-color: #141423;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s;
+}
+
+.game-card.active:hover {
+    border-color: #00f0ff;
+    background-color: #1a1a2e;
+    transform: scale(1.02);
+    box-shadow: 0px 0px 10px rgba(0, 240, 255, 0.4);
+}
+
+.game-card.locked { opacity: 0.4; cursor: not-allowed; }
+
+.card-icon { font-size: 24px; margin-right: 15px; color: #ffbe0b; }
+
+.card-info { text-align: left; flex-grow: 1; }
+.card-info h2 { font-size: 12px; margin: 0 0 5px 0; color: #fff; }
+.card-info p { font-size: 8px; margin: 0; color: #8a8a9e; }
+
+.status-tag { font-size: 8px; background: #ff3e6c; padding: 4px 8px; border-radius: 2px; }
+.game-card.locked .status-tag { background: #333; }
